@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:diceapp/styled_text.dart';
+// import 'package:diceapp/styled_text.dart';
 
 const startAlignment = Alignment.topLeft;
 const endAlignment = Alignment.bottomRight;
@@ -7,50 +7,87 @@ const endAlignment = Alignment.bottomRight;
 // final startAlignment = Alignment.topLeft;
 // final endAlignment = Alignment.bottomRight;
 
-class GradientContainer extends StatelessWidget {
-  const GradientContainer({super.key, required this.colors});
-
-  final List<Color> colors;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: colors,
-          begin: startAlignment,
-          end: endAlignment,
-        ),
-      ),
-      child: const Center(
-        child: StyledText('Hello, World!'),
-      ),
-    );
-  }
-}
-
 // class GradientContainer extends StatelessWidget {
-//   const GradientContainer(this.firstColor, this.secondColor, {super.key});
+//   const GradientContainer({super.key, required this.colors});
 
-//   final Color firstColor;
-//   final Color secondColor;
+//   final List<Color> colors;
 
 //   @override
 //   Widget build(BuildContext context) {
 //     return Container(
 //       decoration: BoxDecoration(
 //         gradient: LinearGradient(
-//           colors: [
-//             firstColor,
-//             secondColor,
-//           ],
+//           colors: colors,
 //           begin: startAlignment,
 //           end: endAlignment,
 //         ),
 //       ),
-//       child: const Center(
-//         child: StyledText('Hello, World!'),
+//       child: Center(
+//         child: Column(
+//           children: [
+//             Image.asset(
+//               'assets/images/dice-1.png',
+//               width: 200,
+//             ),
+//             ElevatedButton(onPressed: onPressed, child: child),
+//             OutlinedButton(onPressed: onPressed, child: child),
+//             TextButton(onPressed: onPressed, child: child),
+//           ],
+//         ),
 //       ),
 //     );
 //   }
 // }
+
+void rollDice() {
+  print('Dice rolled!');
+}
+
+class GradientContainer extends StatelessWidget {
+  const GradientContainer(this.firstColor, this.secondColor, {super.key});
+
+  const GradientContainer.blueRed({super.key})
+    : firstColor = Colors.blue,
+      secondColor = Colors.red;
+
+  final Color firstColor;
+  final Color secondColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            firstColor,
+            secondColor,
+          ],
+          begin: startAlignment,
+          end: endAlignment,
+        ),
+      ),
+      child: Center(
+        child: Column(
+          children: [
+            Image.asset(
+              'assets/images/dice-1.png',
+              width: 200,
+            ),
+            const ElevatedButton(
+              onPressed: rollDice,
+              child: Text('Roll Dice'),
+            ),
+            const OutlinedButton(
+              onPressed: rollDice,
+              child: Text('Roll Dice'),
+            ),
+            const TextButton(
+              onPressed: rollDice,
+              child: Text('Roll Dice'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
