@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:diceapp/dice_roller.dart';
 // import 'package:diceapp/styled_text.dart';
 
 const startAlignment = Alignment.topLeft;
@@ -39,10 +40,6 @@ const endAlignment = Alignment.bottomRight;
 //   }
 // }
 
-void rollDice() {
-  print('Dice rolled!');
-}
-
 class GradientContainer extends StatelessWidget {
   const GradientContainer(this.firstColor, this.secondColor, {super.key});
 
@@ -66,27 +63,8 @@ class GradientContainer extends StatelessWidget {
           end: endAlignment,
         ),
       ),
-      child: Center(
-        child: Column(
-          children: [
-            Image.asset(
-              'assets/images/dice-1.png',
-              width: 200,
-            ),
-            const ElevatedButton(
-              onPressed: rollDice,
-              child: Text('Roll Dice'),
-            ),
-            const OutlinedButton(
-              onPressed: rollDice,
-              child: Text('Roll Dice'),
-            ),
-            const TextButton(
-              onPressed: rollDice,
-              child: Text('Roll Dice'),
-            ),
-          ],
-        ),
+      child: const Center(
+        child: DiceRoller(),
       ),
     );
   }
