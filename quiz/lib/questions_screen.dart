@@ -30,25 +30,15 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
             ),
           ),
           const SizedBox(height: 20),
-          AnswerButton(
-            answerText: currentQuestion.answers[0],
-            onPressed: () {},
-          ),
-          const SizedBox(height: 10),
-          AnswerButton(
-            answerText: currentQuestion.answers[1],
-            onPressed: () {},
-          ),
-          const SizedBox(height: 10),
-          AnswerButton(
-            answerText: currentQuestion.answers[2],
-            onPressed: () {},
-          ),
-          const SizedBox(height: 10),
-          AnswerButton(
-            answerText: currentQuestion.answers[3],
-            onPressed: () {},
-          ),
+          ...currentQuestion.answers.map((answer) {
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: AnswerButton(
+                answerText: answer,
+                onPressed: () {},
+              ),
+            );
+          }),
         ],
       ),
     );
