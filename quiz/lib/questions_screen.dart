@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'package:quiz/answer_button.dart';
 import 'package:quiz/data/questions.dart';
@@ -17,7 +18,11 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
 
   void answerQuestion() {
     setState(() {
-      currentQuestionIndex++;
+      if (currentQuestionIndex < questions.length - 1) {
+        currentQuestionIndex++;
+      } else {
+        //quiz is ended
+      }
     });
   }
 
@@ -36,8 +41,10 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
             Text(
               currentQuestion.questionText,
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Colors.white,
+              style: GoogleFonts.lato(
+                color: const Color.fromARGB(255, 191, 112, 255),
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
               ),
             ),
             const SizedBox(height: 20),
