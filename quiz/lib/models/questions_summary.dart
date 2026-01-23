@@ -14,22 +14,20 @@ class QuestionsSummary extends StatelessWidget {
             Text(
               ((data['question_index'] as int) + 1).toString(),
             ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    data['question'] as String,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text('Your answer: ${data['user_answer']}'),
-                  Text('Correct answer: ${data['correct_answer']}'),
-                ],
-              ),
-            ),
+            Column(
+              children: [
+                Text(
+                  data['question'] as String,
+                ),
+                const SizedBox(height: 5,),
+                Text(
+                  data['user_answer'] as String,
+                ),
+                Text(
+                  data['correct_answer'] as String,
+                ),
+              ],
+            )
           ],
         );
       }).toList(),
