@@ -25,10 +25,8 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
     widget.onSelectAnswer(selectedAnswer);
 
     setState(() {
-      if (currentQuestionIndex < questions.length - 1) {
+      if (currentQuestionIndex <= questions.length - 1) {
         currentQuestionIndex++;
-      } else {
-        //quiz is ended
       }
     });
   }
