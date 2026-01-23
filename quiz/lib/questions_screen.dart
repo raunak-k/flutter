@@ -45,14 +45,14 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
           children: [
             Text(
               currentQuestion.questionText,
-              textAlign: TextAlign.center,
               style: GoogleFonts.lato(
-                color: const Color.fromARGB(255, 191, 112, 255),
-                fontSize: 22,
+                color: const Color.fromARGB(255, 201, 153, 251),
+                fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
+              textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 30),
             ...currentQuestion.getShuffledAnswers().map((answer) {
               return AnswerButton(
                 answerText: answer,
@@ -60,7 +60,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                   answerQuestion(answer);
                 },
               );
-            }),
+            })
           ],
         ),
       ),
