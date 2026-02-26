@@ -79,6 +79,69 @@ class _NewExpenseState extends State<NewExpense> {
     super.dispose();
   }
 
+  Widget _buildTitleInput() {
+    return TextField(
+      controller: _titleController,
+      maxLength: 50,
+      decoration: const InputDecoration(
+        label: Text('Title'),
+      ),
+    );
+  }
+
+  Widget _buildAmountInput() {
+    return TextField(
+      controller: _amountController,
+      keyboardType: TextInputType.number,
+      decoration: const InputDecoration(
+        prefixText: '\$ ',
+        label: Text('Amount'),
+      ),
+    );
+  }
+
+  Widget _buildCategoryDropdown() {
+    return DropdownButton<Category>(
+      value: _selectedCategory,
+      items: Category.values
+          .map(
+            (category) => DropdownMenuItem(
+              value: category,
+              child: Text(
+                category.name.toUpperCase(),
+              ),
+            ),
+          )
+          .toList(),
+      onChanged: (value) {
+        if (value == null) return;
+        setState(() {
+          _selectedCategory = value;
+        });
+      },
+    );
+  }
+
+  Widget _buildDateField() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(
+          _selectedDate == null
+              ? 'No date selected'
+              : formatter.format(_selectedDate!),
+        ),
+        IconButton(
+          onPressed: _presentDatePicker,
+          icon: const Icon(
+            Icons.calendar_month,
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final keyboardSpace = MediaQuery.of(context).viewInsets.bottom;
@@ -87,6 +150,7 @@ class _NewExpenseState extends State<NewExpense> {
       builder: (context, constraints) {
         final width = constraints.maxWidth;
         final height = constraints.maxHeight;
+        final isWide = width > height;
 
         return SizedBox(
           height: double.infinity,
@@ -95,127 +159,36 @@ class _NewExpenseState extends State<NewExpense> {
               padding: EdgeInsets.fromLTRB(16, 16, 16, keyboardSpace + 16),
               child: Column(
                 children: [
-                  if (width > height)
+                  if (isWide)
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Expanded(
-                          child: TextField(
-                            controller: _titleController,
-                            maxLength: 50,
-                            decoration: const InputDecoration(
-                              label: Text('Title'),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 24,
-                        ),
-                        Expanded(
-                          child: TextField(
-                            controller: _amountController,
-                            keyboardType: TextInputType.number,
-                            decoration: const InputDecoration(
-                              prefixText: '\$ ',
-                              label: Text('Amount'),
-                            ),
-                          ),
-                        ),
+                        Expanded(child: _buildTitleInput()),
+                        const SizedBox(width: 24),
+                        Expanded(child: _buildAmountInput()),
                       ],
                     )
                   else
-                    TextField(
-                      controller: _titleController,
-                      maxLength: 50,
-                      decoration: const InputDecoration(
-                        label: Text('Title'),
-                      ),
-                    ),
-                  if (width > height)
+                    _buildTitleInput(),
+                  const SizedBox(height: 16),
+                  if (isWide)
                     Row(
                       children: [
-                        DropdownButton(
-                          value: _selectedCategory,
-                          items: Category.values
-                              .map(
-                                (category) => DropdownMenuItem(
-                                  value: category,
-                                  child: Text(
-                                    category.name.toUpperCase(),
-                                  ),
-                                ),
-                              )
-                              .toList(),
-                          onChanged: (value) {
-                            if (value == null) {
-                              return;
-                            }
-                            setState(() {
-                              _selectedCategory = value;
-                            });
-                          },
-                        ),
-                        const SizedBox(
-                          width: 24,
-                        ),
-                        Expanded(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                _selectedDate == null
-                                    ? 'No date selected'
-                                    : formatter.format(_selectedDate!),
-                              ),
-                              IconButton(
-                                onPressed: _presentDatePicker,
-                                icon: const Icon(
-                                  Icons.calendar_month,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                        _buildCategoryDropdown(),
+                        const SizedBox(width: 24),
+                        Expanded(child: _buildDateField()),
                       ],
                     )
                   else
                     Row(
                       children: [
-                        Expanded(
-                          child: TextField(
-                            controller: _amountController,
-                            keyboardType: TextInputType.number,
-                            decoration: const InputDecoration(
-                              prefixText: '\$ ',
-                              label: Text('Amount'),
-                            ),
-                          ),
-                        ),
+                        Expanded(child: _buildAmountInput()),
                         const SizedBox(width: 16),
-                        Expanded(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                _selectedDate == null
-                                    ? 'No date selected'
-                                    : formatter.format(_selectedDate!),
-                              ),
-                              IconButton(
-                                onPressed: _presentDatePicker,
-                                icon: const Icon(
-                                  Icons.calendar_month,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                        Expanded(child: _buildDateField()),
                       ],
                     ),
                   const SizedBox(height: 16),
-                  if (width > height)
+                  if (isWide)
                     Row(
                       children: [
                         const Spacer(),
@@ -234,27 +207,7 @@ class _NewExpenseState extends State<NewExpense> {
                   else
                     Row(
                       children: [
-                        DropdownButton(
-                          value: _selectedCategory,
-                          items: Category.values
-                              .map(
-                                (category) => DropdownMenuItem(
-                                  value: category,
-                                  child: Text(
-                                    category.name.toUpperCase(),
-                                  ),
-                                ),
-                              )
-                              .toList(),
-                          onChanged: (value) {
-                            if (value == null) {
-                              return;
-                            }
-                            setState(() {
-                              _selectedCategory = value;
-                            });
-                          },
-                        ),
+                        _buildCategoryDropdown(),
                         const Spacer(),
                         TextButton(
                           onPressed: () {
